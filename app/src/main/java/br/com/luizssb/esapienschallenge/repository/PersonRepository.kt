@@ -38,8 +38,9 @@ class PersonRepository(
                         }
                     }
 
-                    override fun onFailure(call: Call<List<Person>>, t: Throwable) =
-                        error.postValue(t)
+                    override fun onFailure(
+                        call: Call<List<Person>>, t: Throwable
+                    ) = error.postValue(t)
                 })
             }
         }

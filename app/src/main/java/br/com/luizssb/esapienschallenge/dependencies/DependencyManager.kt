@@ -18,6 +18,7 @@ class DependencyManager private constructor() {
             import(loadRetrofitDependencies())
             import(loadRepositoryDependencies())
             import(androidModule(forApplication))
+            import(loadConnectivityManagerDependencies(forApplication))
         }
     }
 }
