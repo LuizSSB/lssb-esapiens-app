@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.dependencies.viewModel
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -57,8 +58,14 @@ class MainFragment : Fragment(), KodeinAware {
 
     private fun finishLoading(errorMsg: String? = null) {
         refresh_control.isRefreshing = false
-        label_error.text = errorMsg ?: ""
-        container_error.visibility =
-            if (errorMsg === null) View.GONE else View.VISIBLE
+
+        if (viewModel.people.value == null || viewModel.people.value.isNullOrEmpty()) {
+            label_error.text = errorMsg ?: ""
+            container_error.visibility =
+                if (errorMsg === null) View.GONE else View.VISIBLE
+
+        } else if (errorMsg != null) {
+            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
+        }
     }
 }
