@@ -1,10 +1,25 @@
 package br.com.luizssb.esapienschallenge.ui.main
 
-import br.com.luizssb.esapienschallenge.service.ChallengeService
+import android.arch.lifecycle.LiveData
+import br.com.luizssb.esapienschallenge.model.Person
+import br.com.luizssb.esapienschallenge.repository.ChallengeRepository
 import br.com.luizssb.esapienschallenge.ui.InjectionDependentViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 class MainViewModel(kodein: Kodein) : InjectionDependentViewModel(kodein) {
-    val service: ChallengeService by kodein.instance()
+    private val repository: ChallengeRepository by kodein.instance()
+
+    val people: LiveData<List<Person>>
+    val queryError: LiveData<Throwable>
+
+    init {
+        val result = repository.getPeople()
+        people = result.first
+        queryError = result.second
+    }
+
+    fun refresh() {
+        repository.refresh()
+    }
 }
