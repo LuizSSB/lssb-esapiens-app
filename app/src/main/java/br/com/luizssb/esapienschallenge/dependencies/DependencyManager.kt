@@ -14,6 +14,7 @@ class DependencyManager private constructor() {
             // for this to not be possible. Oh, welp.
             // Another possibility would be to generate this file by annotation
             // processing, but that seems just overkill right now.
+            import(loadDatabaseDependencies(forApplication))
             import(loadRetrofitDependencies())
             import(loadRepositoryDependencies())
             import(androidModule(forApplication))
