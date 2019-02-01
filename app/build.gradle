@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "br.com.luizssb.esapienschallenge"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    def version_retrofit = '2.5.0'
+    def version_kodein = '6.0.1'
+    def version_glide = '4.8.0'
+    def version_room = '1.1.1'
+
+    // Luiz: app dependencies
+    implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: version_retrofit
+    implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: version_retrofit
+
+    implementation group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: version_kodein
+    implementation group: 'org.kodein.di', name: 'kodein-di-framework-android-support', version: version_kodein
+
+    implementation group: 'com.github.bumptech.glide', name:'glide', version: version_glide
+    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: version_glide
+
+    implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_room
+    annotationProcessor group: 'android.arch.persistence.room', name: 'compiler', version: version_room
+
+    // Luiz: std dependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    // Luiz: test dependencies
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

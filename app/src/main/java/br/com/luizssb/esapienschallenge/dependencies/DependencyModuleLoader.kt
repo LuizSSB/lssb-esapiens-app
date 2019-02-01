@@ -1,0 +1,3 @@
+package br.com.luizssb.esapienschallenge.dependencies
+
+annotation class DependencyModuleLoader
