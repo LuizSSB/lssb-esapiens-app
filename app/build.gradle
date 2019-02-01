@@ -30,6 +30,7 @@ dependencies {
     def version_kodein = '6.0.1'
     def version_glide = '4.8.0'
     def version_room = '1.1.1'
+    def version_coroutines = '1.0.1'
 
     // Luiz: app dependencies
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: version_retrofit
@@ -43,6 +44,8 @@ dependencies {
 
     implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_room
     kapt group: 'android.arch.persistence.room', name: 'compiler', version: version_room
+
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: version_coroutines
 
     // Luiz: std dependencies
     implementation fileTree(dir: 'libs', include: ['*.jar'])

@@ -1,10 +1,10 @@
 package br.com.luizssb.esapienschallenge.dependencies
 
-import br.com.luizssb.esapienschallenge.repository.ChallengeRepository
 import android.app.Application
 import android.arch.persistence.room.Room
 import br.com.luizssb.esapienschallenge.data.ChallengeDatabase
 import br.com.luizssb.esapienschallenge.data.PersonDao
+import br.com.luizssb.esapienschallenge.repository.PersonRepository
 import br.com.luizssb.esapienschallenge.service.ChallengeService
 import br.com.luizssb.esapienschallenge.service.RetrofitClientInstance
 import org.kodein.di.Kodein
@@ -33,7 +33,7 @@ fun loadRetrofitDependencies() = Kodein.Module("services") {
 
 @DependencyModuleLoader
 fun loadRepositoryDependencies() = Kodein.Module("repositories") {
-    bind<ChallengeRepository>() with singleton {
-        ChallengeRepository(instance())
+    bind<PersonRepository>() with singleton {
+        PersonRepository(instance(), instance())
     }
 }
