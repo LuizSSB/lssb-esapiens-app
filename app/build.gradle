@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -37,10 +39,10 @@ dependencies {
     implementation group: 'org.kodein.di', name: 'kodein-di-framework-android-support', version: version_kodein
 
     implementation group: 'com.github.bumptech.glide', name:'glide', version: version_glide
-    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: version_glide
+    kapt group: 'com.github.bumptech.glide', name: 'compiler', version: version_glide
 
     implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_room
-    annotationProcessor group: 'android.arch.persistence.room', name: 'compiler', version: version_room
+    kapt group: 'android.arch.persistence.room', name: 'compiler', version: version_room
 
     // Luiz: std dependencies
     implementation fileTree(dir: 'libs', include: ['*.jar'])
