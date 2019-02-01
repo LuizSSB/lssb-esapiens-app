@@ -5,53 +5,52 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.MainFragment"
         android:background="@color/page_main_background"
-        android:id="@+id/refresh_control">
-    <android.support.constraint.ConstraintLayout
+        android:fillViewport="true"
+        android:id="@+id/refresh_control"
+        tools:context=".ui.main.MainFragment">
+
+    <GridView
+            android:id="@+id/grid_people"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <GridView
-                android:id="@+id/grid_people"
+            android:layout_height="match_parent"
+            android:numColumns="@integer/grid_num_columns"
+            android:verticalSpacing="@dimen/grid_spacing_vertical"
+            android:horizontalSpacing="@dimen/grid_spacing_horizontal"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:padding="@dimen/grid_people_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/container_error"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:numColumns="@integer/grid_num_columns"
-                android:verticalSpacing="@dimen/grid_spacing_vertical"
-                android:horizontalSpacing="@dimen/grid_spacing_horizontal"
-                android:stretchMode="columnWidth"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:orientation="vertical"
+                android:padding="@dimen/container_error_padding"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:background="@color/page_main_background">
 
-            <android.support.v7.widget.LinearLayoutCompat
-                    android:id="@+id/container_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
+            <android.support.v7.widget.AppCompatImageView
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
                     android:padding="@dimen/container_error_padding"
-                    android:gravity="center_horizontal"
-                    android:visibility="gone"
-                    android:background="@color/page_main_background">
+                    android:id="@+id/label_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/container_error_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <android.support.v7.widget.AppCompatImageView
-                        android:src="@mipmap/ic_launcher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        android:padding="@dimen/container_error_padding"
-                        android:id="@+id/label_error"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/container_error_padding"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-            </android.support.v7.widget.LinearLayoutCompat>
-    </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v4.widget.SwipeRefreshLayout>

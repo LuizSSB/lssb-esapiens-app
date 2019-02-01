@@ -7,4 +7,10 @@
     <dimen name="grid_spacing_horizontal">10dp</dimen>
 
     <dimen name="container_error_padding">10dp</dimen>
+
+    <dimen name="cell_person_padding">10dp</dimen>
+    <dimen name="cell_person_side">160dp</dimen>
+
+    <dimen name="space_letter">3dp</dimen>
+    <dimen name="grid_people_padding">10dp</dimen>
 </resources>
