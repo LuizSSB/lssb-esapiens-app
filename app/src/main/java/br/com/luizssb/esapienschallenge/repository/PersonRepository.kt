@@ -1,15 +1,10 @@
 package br.com.luizssb.esapienschallenge.repository
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import br.com.luizssb.esapienschallenge.data.PersonDao
 import br.com.luizssb.esapienschallenge.model.Person
-import br.com.luizssb.esapienschallenge.service.ChallengeService
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import br.com.luizssb.esapienschallenge.service.ApiResponse
+import br.com.luizssb.esapienschallenge.service.PersonService
 
 /**
  * Repository of people. If there's stuff in the database, acquires the data
@@ -24,46 +19,28 @@ import retrofit2.Response
  * @author Luiz
  */
 class PersonRepository(
-    private val service: ChallengeService, private val personDao: PersonDao
+    private val personService: PersonService, private val personDao: PersonDao
 ) {
-    private val people = MutableLiveData<List<Person>>()
-    private val error = MutableLiveData<Throwable>()
-
-    fun getPeople(): Pair<LiveData<List<Person>>, LiveData<Throwable>> {
-        GlobalScope.launch {
-            val dbPeople = personDao.getPeople()
-
-            if (dbPeople.isNotEmpty()) {
-                people.postValue(dbPeople)
-                error.postValue(null)
-            } else {
-                service.getPeople().enqueue(object : Callback<List<Person>> {
-                    override fun onResponse(
-                        call: Call<List<Person>>, response: Response<List<Person>>
-                    ) {
-                        GlobalScope.launch {
-                            val apiPeople = response.body()
-                            if(apiPeople != null) {
-                                personDao.savePeople(apiPeople)
-                            }
-                            people.postValue(apiPeople)
-                        }
-                    }
-
-                    override fun onFailure(
-                        call: Call<List<Person>>, t: Throwable
-                    ) = error.postValue(t)
-                })
+    private val peopleResource by lazy {
+        object : NetworkBoundResource<List<Person>, List<Person>>() {
+            override fun saveCallResult(item: List<Person>) {
+                personDao.cleanRecords()
+                personDao.savePeople(item)
             }
-        }
 
-        return Pair(people, error)
+            override fun shouldFetch(data: List<Person>?): Boolean =
+                data == null || data.isEmpty()
+
+            override fun loadFromDb(): LiveData<List<Person>> =
+                personDao.getPeople()
+
+            override fun createCall(): LiveData<ApiResponse<List<Person>>> =
+                personService.getPeople()
+        }
     }
 
-    fun refresh() {
-        GlobalScope.launch {
-            personDao.cleanRecords()
-            getPeople()
-        }
-    }
+
+    fun loadPeople() = peopleResource.asLiveData()
+
+    fun refresh() = peopleResource.loadUp(forceFromNetwork = true)
 }

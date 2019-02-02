@@ -9,7 +9,7 @@ import android.support.annotation.RequiresApi
 class NougatPlusConnectivityManagerProxy(
     private val connectivityManager: ConnectivityManager
 ) : ConnectivityManagerProxy {
-    override val isConnected: Boolean
+    override val isConnected
         get() = connectivityManager.activeNetworkInfo.isConnected
 
     private val registeredCallbacks =
@@ -23,6 +23,7 @@ class NougatPlusConnectivityManagerProxy(
                 super.onAvailable(network)
                 connectionStatusChangeHandler(true)
             }
+
             override fun onLost(network: Network?) {
                 super.onLost(network)
                 connectionStatusChangeHandler(false)

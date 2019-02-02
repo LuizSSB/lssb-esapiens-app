@@ -12,6 +12,7 @@ import android.widget.Toast
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.dependencies.viewModel
 import br.com.luizssb.esapienschallenge.model.Person
+import br.com.luizssb.esapienschallenge.model.Status
 import br.com.luizssb.esapienschallenge.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.kodein.di.KodeinAware
@@ -20,7 +21,6 @@ import org.kodein.di.android.support.closestKodein
 class MainFragment : Fragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModel: MainViewModel by viewModel()
-    private val adapter: PeopleAdapter by lazy { PeopleAdapter(context!!) }
 
     companion object {
         fun newInstance() = MainFragment()
@@ -35,12 +35,11 @@ class MainFragment : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        refresh_control.isRefreshing = true
         refresh_control.setOnRefreshListener(this::refresh)
         button_refresh.setOnClickListener { refresh() }
 
-        grid_people.adapter = adapter
         grid_people.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            val adapter = grid_people.adapter as PeopleAdapter
             val intent = Intent(context, ProfileActivity::class.java)
             intent.putExtra(
                 ProfileActivity.KEY_PERSON, adapter.getItem(i) as Person
@@ -48,45 +47,43 @@ class MainFragment : Fragment(), KodeinAware {
             startActivity(intent)
         }
 
-        viewModel.people
-            .observe(this@MainFragment, Observer {
-                adapter.people = it ?: emptyList()
-                finishLoading()
-            })
+        viewModel.peopleResource.observe(this, Observer {
+            if (it == null) return@Observer
 
-        viewModel.queryError
-            .observe(this@MainFragment, Observer {
-                if (it !== null) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    grid_people.adapter = PeopleAdapter(context!!, it.data!!)
+                    container_error.visibility = View.GONE
+                    refresh_control.isRefreshing = false
+                }
+                Status.LOADING -> {
+                    refresh_control.isRefreshing = true
+                    progressbar.visibility = View.VISIBLE
+                    button_refresh.visibility = View.GONE
+                }
+                Status.ERROR -> {
+                    progressbar.visibility = View.GONE
+                    refresh_control.isRefreshing = false
+
                     // Luiz: given the limited scope of the REST API (there
                     // isn't even any kind of error response), if an error
                     // occurs, it must be either unreachable network or
                     // deserialization error. Since the latter is extremely
-                    // unlikely, we just assume the network failed and
+                    // unlikely, we just show a network failure message and
                     // call it a day.
-                    finishLoading(getString(R.string.error_query))
+                    val msg = getString(R.string.error_query)
+
+                    if (container_error.visibility == View.GONE) {
+                        // Luiz: i.e. there's already something visible
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    } else {
+                        button_refresh.visibility = View.VISIBLE
+                        label_error.text = msg
+                    }
                 }
-            })
+            }
+        })
     }
 
-    private fun refresh() {
-        refresh_control.isRefreshing = true
-        progressbar.visibility = View.VISIBLE
-        button_refresh.visibility = View.GONE
-        viewModel.refresh()
-    }
-
-    private fun finishLoading(errorMsg: String? = null) {
-        refresh_control.isRefreshing = false
-        progressbar.visibility = View.GONE
-
-        if (viewModel.people.value == null || viewModel.people.value.isNullOrEmpty()) {
-            label_error.text = errorMsg ?: ""
-            button_refresh.visibility = View.VISIBLE
-            container_error.visibility = View.VISIBLE
-        } else if (errorMsg == null) {
-            container_error.visibility = View.GONE
-        } else {
-            Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
-        }
-    }
+    private fun refresh() = viewModel.refresh()
 }

@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 
-class ReachabilityReceiver(private val connectivityManager: ConnectivityManager)
-    : BroadcastReceiver(), ConnectivityManagerProxy {
+class ReachabilityReceiver(private val connectivityManager: ConnectivityManager) : BroadcastReceiver(),
+    ConnectivityManagerProxy {
     private val observers = HashSet<(Boolean) -> Unit>()
 
     override fun registerNetworkStatusChangeCallback(
@@ -23,13 +23,13 @@ class ReachabilityReceiver(private val connectivityManager: ConnectivityManager)
         observers.remove(connectionStatusChangeHandler)
     }
 
-    override val isConnected: Boolean
+    override val isConnected
         get() = connectivityManager.activeNetworkInfo.isConnected
 
     override fun onReceive(context: Context, intent: Intent) {
         val isNetworkAvailable = isConnected
 
-        for(handler in observers) {
+        for (handler in observers) {
             handler(isNetworkAvailable)
         }
     }
