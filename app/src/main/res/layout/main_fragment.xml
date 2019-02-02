@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/page_main_background"
+        android:background="@color/background_page_main"
         android:fillViewport="true"
         tools:context=".ui.main.MainFragment">
 
@@ -41,7 +41,7 @@
             android:orientation="vertical"
             android:padding="@dimen/padding_container_error"
             android:gravity="center_horizontal"
-            android:background="@color/page_main_background">
+            android:background="@color/background_page_main">
 
         <android.support.v7.widget.AppCompatImageView
                 android:src="@mipmap/ic_launcher"
