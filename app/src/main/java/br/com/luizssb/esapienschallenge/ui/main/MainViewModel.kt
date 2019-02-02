@@ -11,7 +11,7 @@ import org.kodein.di.generic.instance
 class MainViewModel(kodein: Kodein) : InjectionDependentViewModel(kodein) {
     private val repository: PersonRepository by kodein.instance()
     private val connectivityManager: ConnectivityManagerProxy by kodein.instance()
-    private var isConnected = true
+    private var isConnected = connectivityManager.isConnected
 
     val people: LiveData<List<Person>>
     val queryError: LiveData<Throwable>

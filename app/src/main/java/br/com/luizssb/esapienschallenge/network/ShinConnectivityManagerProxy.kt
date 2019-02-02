@@ -11,6 +11,9 @@ import android.support.annotation.RequiresApi
 class ShinConnectivityManagerProxy(
     private val connectivityManager: ConnectivityManager
 ) : ConnectivityManagerProxy {
+    override val isConnected: Boolean
+        get() = connectivityManager.activeNetworkInfo.isConnected
+
     private val registeredCallbacks =
         HashMap<(Boolean) -> Unit, ConnectivityManager.NetworkCallback>()
 

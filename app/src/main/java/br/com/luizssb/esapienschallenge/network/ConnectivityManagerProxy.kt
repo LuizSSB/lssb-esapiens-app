@@ -7,4 +7,5 @@ interface ConnectivityManagerProxy {
     fun unregisterNetworkStatusChangeCallback(
         connectionStatusChangeHandler:(connected: Boolean) -> Unit
     )
+    val isConnected: Boolean
 }
