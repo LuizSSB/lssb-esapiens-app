@@ -3,21 +3,23 @@ package br.com.luizssb.esapienschallenge.dependencies
 import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build
 import br.com.luizssb.esapienschallenge.data.ChallengeDatabase
 import br.com.luizssb.esapienschallenge.data.PersonDao
 import br.com.luizssb.esapienschallenge.network.ConnectivityManagerProxy
-import br.com.luizssb.esapienschallenge.network.ReachabilityReceiver
 import br.com.luizssb.esapienschallenge.network.NougatPlusConnectivityManagerProxy
+import br.com.luizssb.esapienschallenge.network.ReachabilityReceiver
 import br.com.luizssb.esapienschallenge.repository.PersonRepository
-import br.com.luizssb.esapienschallenge.service.ChallengeService
+import br.com.luizssb.esapienschallenge.service.ChallengeRestApi
+import br.com.luizssb.esapienschallenge.service.PersonService
 import br.com.luizssb.esapienschallenge.service.RetrofitClientInstance
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
-import android.content.IntentFilter
 
 
 @DependencyModuleLoader
@@ -33,10 +35,11 @@ fun loadDatabaseDependencies(app: Application) = Kodein.Module("database") {
 
 @DependencyModuleLoader
 fun loadRetrofitDependencies() = Kodein.Module("services") {
-    bind<ChallengeService>() with singleton {
+    bind<ChallengeRestApi>() with singleton {
         RetrofitClientInstance.retrofitClientInstance
-            .create(ChallengeService::class.java)
+            .create(ChallengeRestApi::class.java)
     }
+    bind<PersonService>() with provider { PersonService(instance()) }
 }
 
 @DependencyModuleLoader
@@ -45,7 +48,6 @@ fun loadRepositoryDependencies() = Kodein.Module("repositories") {
         PersonRepository(instance(), instance())
     }
 }
-
 
 @DependencyModuleLoader
 fun loadConnectivityManagerDependencies(app: Application) =
