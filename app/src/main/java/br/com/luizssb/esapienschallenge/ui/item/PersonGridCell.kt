@@ -13,14 +13,14 @@ import kotlinx.android.synthetic.main.cell_person.view.*
 
 class PersonGridCell : FrameLayout {
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     init {
         // Luiz: while the correct approach would be to use Kodein for this,
         // as far as my knowledge goes, this would require different ctors,
-        // which would make it impossible to instantiate this view the lauout
+        // which would make it impossible to instantiate this view the layout
         // XMLs. Useless as keeping this capability is, I'd rather have it, as a
         // matter of view standardization.
         val inflater = context
