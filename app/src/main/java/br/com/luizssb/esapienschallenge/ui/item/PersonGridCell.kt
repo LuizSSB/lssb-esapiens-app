@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import br.com.luizssb.esapienschallenge.ui.extension.loadRemoteImage
 import kotlinx.android.synthetic.main.cell_person.view.*
 
 
@@ -29,22 +28,13 @@ class PersonGridCell : FrameLayout {
     }
 
     var person: Person? = null
-    set(value) {
-        field = value
-        label_city.text = value?.city
-        label_username.text = value?.username
-        label_gender.text = value?.gender
-        label_sexuality.text = value?.sexualOrientation
-        label_age.text = value?.age?.toString()
-
-        Glide
-            .with(context)
-            .load(value?.photoURL)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.mipmap.ic_launcher_round)
-                    .centerCrop()
-            )
-            .into(image_profile)
-    }
+        set(value) {
+            field = value
+            label_city.text = value?.city
+            label_username.text = value?.username
+            label_gender.text = value?.gender
+            label_sexuality.text = value?.sexualOrientation
+            label_age.text = value?.age.toString()
+            image_profile.loadRemoteImage(context, value?.photoURL)
+        }
 }
