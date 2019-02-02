@@ -1,14 +1,18 @@
 package br.com.luizssb.esapienschallenge.ui.main
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Toast
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.dependencies.viewModel
+import br.com.luizssb.esapienschallenge.model.Person
+import br.com.luizssb.esapienschallenge.ui.profile.ProfileActivity
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.support.closestKodein
@@ -16,6 +20,7 @@ import org.kodein.di.android.support.closestKodein
 class MainFragment : Fragment(), KodeinAware {
     override val kodein by closestKodein()
     private val viewModel: MainViewModel by viewModel()
+    private val adapter: PeopleAdapter by lazy { PeopleAdapter(context!!) }
 
     companion object {
         fun newInstance() = MainFragment()
@@ -34,9 +39,18 @@ class MainFragment : Fragment(), KodeinAware {
         refresh_control.setOnRefreshListener(this::refresh)
         button_refresh.setOnClickListener { refresh() }
 
+        grid_people.adapter = adapter
+        grid_people.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            val intent = Intent(context, ProfileActivity::class.java)
+            intent.putExtra(
+                ProfileActivity.KEY_PERSON, adapter.getItem(i) as Person
+            )
+            startActivity(intent)
+        }
+
         viewModel.people
             .observe(this@MainFragment, Observer {
-                grid_people.adapter = PeopleAdapter(context!!, it)
+                adapter.people = it ?: emptyList()
                 finishLoading()
             })
 
