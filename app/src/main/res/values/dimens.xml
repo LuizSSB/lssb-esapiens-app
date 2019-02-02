@@ -18,7 +18,9 @@
     <dimen name="padding_grid_people">10dp</dimen>
 
     <dimen name="height_actionbar_profile">90dp</dimen>
-    <dimen name="size_image_profile">100dp</dimen>
-    <dimen name="corner_radius_image_profile">50dp</dimen> <!-- height_actionbar_profile / 2 -->
-    <dimen name="padding_top_container_profile">40dp</dimen> <!-- height_actionbar_profile - size_image_profile / 2 -->
+    <dimen name="size_image_profile">120dp</dimen>
+    <dimen name="corner_radius_image_profile">60dp</dimen> <!-- height_actionbar_profile / 2 -->
+    <dimen name="padding_top_container_profile">30dp</dimen> <!-- height_actionbar_profile - size_image_profile / 2 -->
+    <dimen name="margin_top_label_profile_title">15dp</dimen>
+    <dimen name="margin_top_container_profile_data">25dp</dimen>
 </resources>

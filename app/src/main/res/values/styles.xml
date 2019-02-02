@@ -27,5 +27,12 @@
         <item name="android:shadowColor">#000000</item>
     </style>
 
+    <style name="LabelProfile">
+        <item name="android:textSize">15sp</item>
+    </style>
 
+    <style name="LabelTitleProfile">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

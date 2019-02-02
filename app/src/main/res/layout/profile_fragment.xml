@@ -30,16 +30,19 @@
 
     <TextView
             android:id="@+id/label_username"
+            style="@style/LabelTitleProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:gravity="center"
+            android:layout_marginTop="@dimen/margin_top_label_profile_title"
             app:layout_constraintTop_toBottomOf="@id/card_profile"/>
 
     <android.support.v7.widget.GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:columnCount="2"
+            android:layout_marginTop="@dimen/margin_top_container_profile_data"
             app:layout_constraintTop_toBottomOf="@id/label_username">
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -50,7 +53,7 @@
                 android:gravity="center">
 
             <TextView
-                    style="@style/CellPersonLabelWhite"
+                    style="@style/LabelProfile"
                     android:id="@+id/label_age"
                     android:text="666"
                     android:layout_width="wrap_content"
@@ -58,7 +61,7 @@
 
             <TextView
                     android:layout_marginStart="@dimen/space_letter"
-                    style="@style/CellPersonLabelWhite"
+                    style="@style/LabelProfile"
                     android:text="@string/yearsold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -67,7 +70,7 @@
 
         <TextView
                 android:id="@+id/label_city"
-                style="@style/CellPersonLabelWhite"
+                style="@style/LabelProfile"
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
                 app:layout_rowSpan="2"
@@ -82,21 +85,21 @@
                 android:orientation="horizontal">
 
             <TextView
-                    style="@style/CellPersonLabelWhite"
+                    style="@style/LabelProfile"
                     android:id="@+id/label_gender"
                     android:text="666"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    style="@style/CellPersonLabelWhite"
+                    style="@style/LabelProfile"
                     android:text="@string/separator_gender"
                     android:layout_marginEnd="@dimen/space_letter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    style="@style/CellPersonLabelWhite"
+                    style="@style/LabelProfile"
                     android:id="@+id/label_sexuality"
                     android:text="666"
                     android:layout_width="wrap_content"
