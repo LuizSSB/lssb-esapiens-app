@@ -10,9 +10,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_actionbar_profile"
-            style="@style/AppTheme"
-            app:title=" "
-            android:background="#FFFF00"/>
+            android:theme="@style/Theme.ActionBarProfile"
+            app:title=" "/>
     <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"

@@ -35,4 +35,14 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Theme.ActionBarDefault" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">#FFFFFF</item>
+    </style>
+
+    <style name="Theme.ActionBarProfile" parent="@style/Theme.ActionBarDefault">
+        <item name="android:layout_height">@dimen/height_actionbar_profile</item>
+    </style>
 </resources>
