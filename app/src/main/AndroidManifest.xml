@@ -23,16 +23,18 @@
 
         <!-- Luiz: commented due to receiver being registered at rutime. -->
         <!-- Left if here for reference only. -->
-        <!--<receiver-->
-                <!--android:name=".network.ReachabilityReceiver"-->
-                <!--android:enabled="true"-->
-                <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />-->
-                <!--<action android:name="android.net.wifi.STATE_CHANGE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".network.ReachabilityReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
+        <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED" /> -->
+        <!-- <action android:name="android.net.wifi.STATE_CHANGE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity android:name=".ui.profile.ProfileActivity">
+        </activity>
     </application>
 
 </manifest>

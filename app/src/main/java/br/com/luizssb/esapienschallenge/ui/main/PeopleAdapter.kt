@@ -9,15 +9,17 @@ import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
 import br.com.luizssb.esapienschallenge.ui.item.PersonGridCell
 
-class PeopleAdapter(
-    private val context: Context, private val _people: List<Person>?
-) : BaseAdapter() {
-    val people get() = _people ?: emptyList()
+class PeopleAdapter(private val context: Context) : BaseAdapter() {
+    var people: List<Person> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val cellView: PersonGridCell
         if (p1 == null) {
-            val cellSide = context.resources.getDimension(R.dimen.cell_person_side)
+            val cellSide = context.resources.getDimension(R.dimen.size_cell_person)
             cellView = PersonGridCell(context)
             cellView.layoutParams =
                 AbsListView.LayoutParams(cellSide.toInt(), cellSide.toInt())
@@ -29,15 +31,9 @@ class PeopleAdapter(
         return cellView
     }
 
-    override fun getItem(p0: Int): Any {
-        return people[p0]
-    }
+    override fun getItem(p0: Int): Any = people[p0]
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
-    }
+    override fun getItemId(p0: Int): Long = p0.toLong()
 
-    override fun getCount(): Int {
-        return people.size
-    }
+    override fun getCount(): Int = people.size
 }

@@ -3,6 +3,7 @@ package br.com.luizssb.esapienschallenge.model
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "Person")
 data class Person(
@@ -18,4 +19,4 @@ data class Person(
     // doesn't consider the request locale and returns everything in English.
     val gender: String,
     val sexualOrientation: String
-)
+) : Serializable
