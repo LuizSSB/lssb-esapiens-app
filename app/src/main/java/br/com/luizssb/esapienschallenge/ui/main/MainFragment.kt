@@ -10,17 +10,18 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import br.com.luizssb.esapienschallenge.R
-import br.com.luizssb.esapienschallenge.dependencies.viewModel
+import br.com.luizssb.esapienschallenge.dependencies.lazyViewModel
 import br.com.luizssb.esapienschallenge.model.Person
 import br.com.luizssb.esapienschallenge.model.Status
 import br.com.luizssb.esapienschallenge.ui.profile.ProfileActivity
+import br.com.luizssb.esapienschallenge.ui.profile.ProfileFragment.Companion.KEY_PERSON
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.support.closestKodein
 
 class MainFragment : Fragment(), KodeinAware {
     override val kodein by closestKodein()
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by lazyViewModel()
 
     companion object {
         fun newInstance() = MainFragment()
@@ -42,7 +43,7 @@ class MainFragment : Fragment(), KodeinAware {
             val adapter = grid_people.adapter as PeopleAdapter
             val intent = Intent(context, ProfileActivity::class.java)
             intent.putExtra(
-                ProfileActivity.KEY_PERSON, adapter.getItem(i) as Person
+                KEY_PERSON, adapter.getItem(i) as Person
             )
             startActivity(intent)
             activity?.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)

@@ -6,14 +6,10 @@ import android.view.MenuItem
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
 import br.com.luizssb.esapienschallenge.ui.BaseAppActivity
+import br.com.luizssb.esapienschallenge.ui.profile.ProfileFragment.Companion.KEY_PERSON
 import kotlinx.android.synthetic.main.profile_activity.*
 
 class ProfileActivity : BaseAppActivity() {
-    companion object {
-        const val KEY_PERSON =
-            "br.com.luizssb.esapienschallenge.profileactivity.person"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_activity)

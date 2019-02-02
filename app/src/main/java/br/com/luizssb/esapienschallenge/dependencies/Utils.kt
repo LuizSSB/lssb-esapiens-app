@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentActivity
 import br.com.luizssb.esapienschallenge.ui.InjectionDependentViewModel
 import org.kodein.di.KodeinAware
 
-inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
+inline fun <reified TVM : InjectionDependentViewModel, T> T.lazyViewModel(
     vararg params: Any
 ) where T : KodeinAware, T : FragmentActivity = lazy {
     ViewModelProviders.of(
@@ -15,7 +15,7 @@ inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
     ).get(TVM::class.java)
 }
 
-inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
+inline fun <reified TVM : InjectionDependentViewModel, T> T.lazyViewModel(
     vararg params: Any
 ) where T : KodeinAware, T : Fragment = lazy {
     ViewModelProviders.of(
@@ -23,3 +23,11 @@ inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
         InjectionDependentViewModel.Factory(this.kodein, *params)
     ).get(TVM::class.java)
 }
+
+inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
+    vararg params: Any
+) where T : KodeinAware, T : Fragment =
+    ViewModelProviders.of(
+        this,
+        InjectionDependentViewModel.Factory(this.kodein, *params)
+    ).get(TVM::class.java)
