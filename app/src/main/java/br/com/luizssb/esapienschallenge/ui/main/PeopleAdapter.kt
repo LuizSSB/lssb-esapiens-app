@@ -3,6 +3,7 @@ package br.com.luizssb.esapienschallenge.ui.main
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.BaseAdapter
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
@@ -19,7 +20,7 @@ class PeopleAdapter(
             val cellSide = context.resources.getDimension(R.dimen.cell_person_side)
             cellView = PersonGridCell(context)
             cellView.layoutParams =
-                ViewGroup.LayoutParams(cellSide.toInt(), cellSide.toInt())
+                AbsListView.LayoutParams(cellSide.toInt(), cellSide.toInt())
         } else {
             cellView = p1 as PersonGridCell
         }
