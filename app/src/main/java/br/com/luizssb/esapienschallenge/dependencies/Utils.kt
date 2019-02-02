@@ -8,7 +8,7 @@ import org.kodein.di.KodeinAware
 
 inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
     vararg params: Any
-): Lazy<TVM> where T : KodeinAware, T : FragmentActivity = lazy {
+) where T : KodeinAware, T : FragmentActivity = lazy {
     ViewModelProviders.of(
         this,
         InjectionDependentViewModel.Factory(this.kodein, *params)
@@ -17,7 +17,7 @@ inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
 
 inline fun <reified TVM : InjectionDependentViewModel, T> T.viewModel(
     vararg params: Any
-): Lazy<TVM> where T : KodeinAware, T : Fragment  = lazy {
+) where T : KodeinAware, T : Fragment = lazy {
     ViewModelProviders.of(
         this,
         InjectionDependentViewModel.Factory(this.kodein, *params)

@@ -35,7 +35,5 @@ class MainViewModel(kodein: Kodein) : InjectionDependentViewModel(kodein) {
         }
     }
 
-    fun refresh() {
-        repository.refresh()
-    }
+    fun refresh() = repository.refresh()
 }

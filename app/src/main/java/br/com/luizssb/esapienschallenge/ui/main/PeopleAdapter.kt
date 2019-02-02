@@ -29,15 +29,9 @@ class PeopleAdapter(
         return cellView
     }
 
-    override fun getItem(p0: Int): Any {
-        return people[p0]
-    }
+    override fun getItem(p0: Int): Any = people[p0]
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
-    }
+    override fun getItemId(p0: Int): Long = p0.toLong()
 
-    override fun getCount(): Int {
-        return people.size
-    }
+    override fun getCount(): Int = people.size
 }
