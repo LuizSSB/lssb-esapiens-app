@@ -10,7 +10,7 @@ class NougatPlusConnectivityManagerProxy(
     private val connectivityManager: ConnectivityManager
 ) : ConnectivityManagerProxy {
     override val isConnected
-        get() = connectivityManager.activeNetworkInfo.isConnected
+        get() = connectivityManager.activeNetworkInfo?.isConnected ?: false
 
     private val registeredCallbacks =
         HashMap<(Boolean) -> Unit, ConnectivityManager.NetworkCallback>()
