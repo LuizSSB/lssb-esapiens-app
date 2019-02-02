@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Desafio eSapiens</string>
+    <string name="app_name">eSapiens</string>
+
+    <string name="title_main">Explorar</string>
+
+    <string name="error_query">Não foi possível consultar as pessoas. Verifique a conexão com a internet e tente
+        novamente
+    </string>
+    <string name="button_refresh">Recarregar</string>
+
+    <string name="yearsold">ano(s)</string>
+    <string name="separator_gender">,</string>
+    <string name="content_desc_image_profile">profile image</string>
 </resources>

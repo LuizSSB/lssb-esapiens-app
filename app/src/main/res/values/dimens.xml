@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Luiz: resource naming standard:
+    <property>_<scope>_<scopeInstanceName>
+-->
+<resources>
+    <!-- Luiz: don't really understand why, but it is a requirement. -->
+    <integer name="columns_grid_people">2</integer>
+
+    <dimen name="spacing_vertical_grid">10dp</dimen>
+    <dimen name="spacing_horizontal_grid">10dp</dimen>
+
+    <dimen name="padding_container_error">10dp</dimen>
+
+    <dimen name="padding_cell_person">10dp</dimen>
+    <dimen name="size_cell_person">160dp</dimen>
+
+    <dimen name="space_letter">3dp</dimen>
+    <dimen name="padding_grid_people">10dp</dimen>
+
+    <dimen name="height_actionbar_profile">90dp</dimen>
+    <dimen name="size_image_profile">120dp</dimen>
+    <dimen name="corner_radius_image_profile">60dp</dimen> <!-- height_actionbar_profile / 2 -->
+    <dimen name="padding_top_container_profile">30dp</dimen> <!-- height_actionbar_profile - size_image_profile / 2 -->
+    <dimen name="margin_top_label_profile_title">15dp</dimen>
+    <dimen name="margin_top_container_profile_data">25dp</dimen>
+</resources>

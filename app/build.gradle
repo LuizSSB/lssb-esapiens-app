@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -11,7 +13,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,7 +29,8 @@ dependencies {
     def version_retrofit = '2.5.0'
     def version_kodein = '6.0.1'
     def version_glide = '4.8.0'
-    def version_room = '1.1.1'
+    def version_aac = '1.1.1'
+    def version_coroutines = '1.0.1'
 
     // Luiz: app dependencies
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: version_retrofit
@@ -36,18 +39,22 @@ dependencies {
     implementation group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: version_kodein
     implementation group: 'org.kodein.di', name: 'kodein-di-framework-android-support', version: version_kodein
 
-    implementation group: 'com.github.bumptech.glide', name:'glide', version: version_glide
-    annotationProcessor group: 'com.github.bumptech.glide', name: 'compiler', version: version_glide
+    implementation group: 'com.github.bumptech.glide', name: 'glide', version: version_glide
+    kapt group: 'com.github.bumptech.glide', name: 'compiler', version: version_glide
 
-    implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_room
-    annotationProcessor group: 'android.arch.persistence.room', name: 'compiler', version: version_room
+    implementation group: 'android.arch.lifecycle', name: 'extensions', version: version_aac
+    implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_aac
+    kapt group: 'android.arch.persistence.room', name: 'compiler', version: version_aac
 
-    // Luiz: std dependencies
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: version_coroutines
+
+    // Luiz: std and android dependencies
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support:gridlayout-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     // Luiz: test dependencies
     testImplementation 'junit:junit:4.12'

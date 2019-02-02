@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_top_container_profile"
+        tools:context=".ui.profile.ProfileFragment">
+
+    <!-- Luiz: foregoes Glide's transform capabilities for the sake of perfomance -->
+    <android.support.v7.widget.CardView
+            android:id="@+id/card_profile"
+            android:layout_width="@dimen/size_image_profile"
+            android:layout_height="@dimen/size_image_profile"
+            app:cardCornerRadius="@dimen/corner_radius_image_profile"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+        <ImageView
+                android:id="@+id/image_profile"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:src="@mipmap/ic_launcher_round"
+                android:contentDescription="@string/content_desc_image_profile">
+        </ImageView>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+            android:id="@+id/label_username"
+            style="@style/LabelTitleProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_top_label_profile_title"
+            app:layout_constraintTop_toBottomOf="@id/card_profile"/>
+
+    <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="2"
+            android:layout_marginTop="@dimen/margin_top_container_profile_data"
+            app:layout_constraintTop_toBottomOf="@id/label_username">
+
+        <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/container_age"
+                android:orientation="horizontal"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:gravity="center">
+
+            <TextView
+                    style="@style/LabelProfile"
+                    android:id="@+id/label_age"
+                    android:text="666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:layout_marginStart="@dimen/space_letter"
+                    style="@style/LabelProfile"
+                    android:text="@string/yearsold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <TextView
+                android:id="@+id/label_city"
+                style="@style/LabelProfile"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                app:layout_rowSpan="2"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="São José do Rio Preto"/>
+
+        <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/container_gender"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            <TextView
+                    style="@style/LabelProfile"
+                    android:id="@+id/label_gender"
+                    android:text="666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    style="@style/LabelProfile"
+                    android:text="@string/separator_gender"
+                    android:layout_marginEnd="@dimen/space_letter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    style="@style/LabelProfile"
+                    android:id="@+id/label_sexuality"
+                    android:text="666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.GridLayout>
+</android.support.constraint.ConstraintLayout>
