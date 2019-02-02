@@ -64,6 +64,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             when {
                 response == null ->
                     result.addSource(dbSource) { newData ->
+                        result.removeSource(dbSource)
                         setValue(Resource.success(newData))
                     }
 
@@ -81,6 +82,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 else -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
+                        result.removeSource(dbSource)
                         setValue(Resource.error(response.error!!, newData))
                     }
                 }
