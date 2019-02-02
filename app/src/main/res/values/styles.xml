@@ -36,13 +36,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.ActionBarDefault" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">#FFFFFF</item>
-        <item name="android:background">@color/colorPrimary</item>
+    <style name="ActionBarDefault">
+        <item name="android:background">@drawable/background_actionbar_default</item>
         <item name="titleTextColor">#FFFFFF</item>
     </style>
 
-    <style name="Theme.ActionBarProfile" parent="@style/Theme.ActionBarDefault">
+    <style name="ActionBarProfile">
+        <item name="android:background">@drawable/background_actionbar_profile</item>
         <item name="android:layout_height">@dimen/height_actionbar_profile</item>
+    </style>
+
+    <style name="Theme.ActionBarWhiteHighlight" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">#FFFFFF</item>
     </style>
 </resources>
