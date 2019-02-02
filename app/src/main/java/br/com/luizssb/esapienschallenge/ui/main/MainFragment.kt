@@ -31,10 +31,8 @@ class MainFragment : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
 
         refresh_control.isRefreshing = true
-        refresh_control.setOnRefreshListener {
-            refresh_control.isRefreshing = true
-            viewModel.refresh()
-        }
+        refresh_control.setOnRefreshListener(this::refresh)
+        button_refresh.setOnClickListener { refresh() }
 
         viewModel.people
             .observe(this@MainFragment, Observer {
@@ -56,15 +54,24 @@ class MainFragment : Fragment(), KodeinAware {
             })
     }
 
+    private fun refresh() {
+        refresh_control.isRefreshing = true
+        progressbar.visibility = View.VISIBLE
+        button_refresh.visibility = View.GONE
+        viewModel.refresh()
+    }
+
     private fun finishLoading(errorMsg: String? = null) {
         refresh_control.isRefreshing = false
+        progressbar.visibility = View.GONE
 
         if (viewModel.people.value == null || viewModel.people.value.isNullOrEmpty()) {
             label_error.text = errorMsg ?: ""
-            container_error.visibility =
-                if (errorMsg === null) View.GONE else View.VISIBLE
-
-        } else if (errorMsg != null) {
+            button_refresh.visibility = View.VISIBLE
+            container_error.visibility = View.VISIBLE
+        } else if (errorMsg == null) {
+            container_error.visibility = View.GONE
+        } else {
             Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show()
         }
     }
