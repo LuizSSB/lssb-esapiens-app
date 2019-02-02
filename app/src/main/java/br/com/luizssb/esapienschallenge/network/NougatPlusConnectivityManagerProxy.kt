@@ -5,10 +5,8 @@ import android.net.Network
 import android.os.Build
 import android.support.annotation.RequiresApi
 
-// From Japanese 真 (shin) meaning "real, genuine" [...]
-// sauce: https://www.behindthename.com/name/shin
 @RequiresApi(Build.VERSION_CODES.N)
-class ShinConnectivityManagerProxy(
+class NougatPlusConnectivityManagerProxy(
     private val connectivityManager: ConnectivityManager
 ) : ConnectivityManagerProxy {
     override val isConnected: Boolean
