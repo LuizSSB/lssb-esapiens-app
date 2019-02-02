@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
+import br.com.luizssb.esapienschallenge.model.Resource
 import br.com.luizssb.esapienschallenge.service.ApiResponse
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,10 +25,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     init {
         result.value = Resource.loading(null)
         @Suppress("LeakingThis")
+        loadUp()
+    }
+
+    fun loadUp(forceFromNetwork: Boolean = false) {
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
-            if (shouldFetch(data)) {
+            if (forceFromNetwork || shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
             } else {
                 result.addSource(dbSource) { newData ->
@@ -47,6 +52,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
         val apiResponse = createCall()
 
+        result.removeSource(dbSource)
         result.addSource(dbSource) { newData ->
             setValue(Resource.loading(newData))
         }
@@ -64,7 +70,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 response.succeeded -> {
                     GlobalScope.launch {
                         saveCallResult(response.data!!)
-                        result.addSource(loadFromDb()) { newData ->
+                        val sauce = loadFromDb()
+                        result.addSource(sauce) { newData ->
+                            result.removeSource(sauce)
                             setValue(Resource.success(newData))
                         }
                     }

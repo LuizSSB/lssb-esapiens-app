@@ -8,9 +8,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PersonService(private val restApi: ChallengeRestApi) {
-    private val people = MutableLiveData<ApiResponse<List<Person>>>()
-
     fun getPeople(): LiveData<ApiResponse<List<Person>>> {
+        val people = MutableLiveData<ApiResponse<List<Person>>>()
+
         restApi.getPeople().enqueue(object : Callback<List<Person>> {
             override fun onResponse(
                 call: Call<List<Person>>, response: Response<List<Person>>

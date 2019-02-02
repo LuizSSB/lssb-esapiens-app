@@ -9,8 +9,8 @@ import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
 import br.com.luizssb.esapienschallenge.ui.item.PersonGridCell
 
-class PeopleAdapter(private val context: Context) : BaseAdapter() {
-    var people: List<Person> = emptyList()
+class PeopleAdapter(private val context: Context, people: List<Person> = emptyList()) : BaseAdapter() {
+    var people: List<Person> = people
         set(value) {
             field = value
             notifyDataSetChanged()

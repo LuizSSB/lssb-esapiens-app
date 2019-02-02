@@ -5,8 +5,6 @@ import br.com.luizssb.esapienschallenge.data.PersonDao
 import br.com.luizssb.esapienschallenge.model.Person
 import br.com.luizssb.esapienschallenge.service.ApiResponse
 import br.com.luizssb.esapienschallenge.service.PersonService
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 /**
  * Repository of people. If there's stuff in the database, acquires the data
@@ -25,8 +23,10 @@ class PersonRepository(
 ) {
     private val peopleResource by lazy {
         object : NetworkBoundResource<List<Person>, List<Person>>() {
-            override fun saveCallResult(item: List<Person>) =
+            override fun saveCallResult(item: List<Person>) {
+                personDao.cleanRecords()
                 personDao.savePeople(item)
+            }
 
             override fun shouldFetch(data: List<Person>?): Boolean =
                 data == null || data.isEmpty()
@@ -42,10 +42,5 @@ class PersonRepository(
 
     fun loadPeople() = peopleResource.asLiveData()
 
-    fun refresh() {
-        GlobalScope.launch {
-            personDao.cleanRecords()
-//            getPeople()
-        }
-    }
+    fun refresh() = peopleResource.loadUp(forceFromNetwork = true)
 }
