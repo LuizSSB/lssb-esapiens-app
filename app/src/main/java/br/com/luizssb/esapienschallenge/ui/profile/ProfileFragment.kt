@@ -15,24 +15,22 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.support.closestKodein
 
 class ProfileFragment : Fragment(), KodeinAware {
-    override val kodein by closestKodein()
-
-    // Luiz: due to the fact that fragments cannot (or, at least, should  not)
-    // have constructor parameters, we can't use the inline 'viewModel()' as
-    // originally intended, hence this little bit.
-    // The intention here was to not let the fragment grab a hold of the Person
-    // object at any point. This way, if a fragment instance wants to get the
-    // Person, it must go through the view model.
-    private lateinit var acquireViewModel: Lazy<ProfileViewModel>
-    private val viewModel get() = acquireViewModel.value
-
     companion object {
+        const val KEY_PERSON =
+            "br.com.luizssb.esapienschallenge.profileafragment.person"
+
         fun newInstance(forPerson: Person): ProfileFragment {
+            val bundle = Bundle()
+            bundle.putSerializable(KEY_PERSON, forPerson)
+
             val fragment = ProfileFragment()
-            fragment.acquireViewModel = fragment.viewModel(forPerson)
+            fragment.arguments = bundle
             return fragment
         }
     }
+
+    override val kodein by closestKodein()
+    private lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +41,14 @@ class ProfileFragment : Fragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Luiz: due to the fact that fragments cannot (or, at least, should  not)
+        // have constructor parameters, we can't use the inline 'lazyViewModel()' as
+        // originally intended, hence this little bit.
+        // The intention here was to not let the fragment grab a hold of the Person
+        // object at any point. This way, if a fragment instance wants to get the
+        // Person, it must go through the view model.
+        viewModel = this.viewModel(arguments!!.getSerializable(KEY_PERSON)!!)
 
         viewModel.person.observe(this, Observer {
             label_username.text = it?.username.toString()
