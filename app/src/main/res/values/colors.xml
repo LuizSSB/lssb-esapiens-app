@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="page_main_background">#FFFFFF</color>
+    <color name="colorPrimaryDark">@color/background_status_default</color>
+    <color name="colorAccent">#27b9b3</color>
+
+    <color name="background_status_default">#0e6166</color>
+    <color name="background_status_profile">#b24739</color>
+    <color name="background_page_main">#FFFFFF</color>
 </resources>

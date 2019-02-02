@@ -1,14 +1,14 @@
 package br.com.luizssb.esapienschallenge.ui.profile
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.content.ContextCompat
 import android.view.MenuItem
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
+import br.com.luizssb.esapienschallenge.ui.BaseAppActivity
 import kotlinx.android.synthetic.main.profile_activity.*
 
-class ProfileActivity : AppCompatActivity() {
-
+class ProfileActivity : BaseAppActivity() {
     companion object {
         const val KEY_PERSON =
             "br.com.luizssb.esapienschallenge.profileactivity.person"
@@ -31,10 +31,22 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            finish()
+            die()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        die()
+    }
+
+    // some would disagree
+    private fun die() {
+        finish()
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+    }
+
+    override val statusBarColor: Int
+        get() = ContextCompat.getColor(this, R.color.background_status_profile);
 }
