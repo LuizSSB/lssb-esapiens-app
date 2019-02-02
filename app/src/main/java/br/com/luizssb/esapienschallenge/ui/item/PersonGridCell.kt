@@ -19,9 +19,9 @@ class PersonGridCell : FrameLayout {
     init {
         // Luiz: while the correct approach would be to use Kodein for this,
         // as far as my knowledge goes, this would require different ctors,
-        // which would make it impossible to instantiate this view the layout
-        // XMLs. Useless as keeping this capability is, I'd rather have it, as a
-        // matter of view standardization.
+        // which would make it impossible to instantiate this view from layout
+        // XMLs. Useless as keeping this capability is, I'd still rather have
+        // it, as a matter of view standardization.
         val inflater = context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.cell_person, this, true)
