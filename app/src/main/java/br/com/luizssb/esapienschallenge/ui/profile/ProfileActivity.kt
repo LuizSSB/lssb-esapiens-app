@@ -31,10 +31,19 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == android.R.id.home) {
-            finish()
+            die()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        die()
+    }
+
+    // some would disagree
+    private fun die() {
+        finish()
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+    }
 }

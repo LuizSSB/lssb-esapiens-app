@@ -46,6 +46,7 @@ class MainFragment : Fragment(), KodeinAware {
                 ProfileActivity.KEY_PERSON, adapter.getItem(i) as Person
             )
             startActivity(intent)
+            activity?.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
 
         viewModel.people
