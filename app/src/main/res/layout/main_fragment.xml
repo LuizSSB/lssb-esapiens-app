@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,50 +7,75 @@
         android:layout_height="match_parent"
         android:background="@color/page_main_background"
         android:fillViewport="true"
-        android:id="@+id/refresh_control"
         tools:context=".ui.main.MainFragment">
 
-    <GridView
-            android:id="@+id/grid_people"
+    <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="@integer/grid_num_columns"
-            android:verticalSpacing="@dimen/grid_spacing_vertical"
-            android:horizontalSpacing="@dimen/grid_spacing_horizontal"
-            android:stretchMode="columnWidth"
-            android:gravity="center"
-            android:padding="@dimen/grid_people_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/refresh_control"
+            tools:context=".ui.main.MainFragment">
 
-        <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/container_error"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/container_error_padding"
-                android:gravity="center_horizontal"
-                android:visibility="gone"
-                android:background="@color/page_main_background">
-
-            <android.support.v7.widget.AppCompatImageView
-                    android:src="@mipmap/ic_launcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:padding="@dimen/container_error_padding"
-                    android:id="@+id/label_error"
+            <GridView
+                    android:id="@+id/grid_people"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:numColumns="@integer/grid_num_columns"
+                    android:verticalSpacing="@dimen/grid_spacing_vertical"
+                    android:horizontalSpacing="@dimen/grid_spacing_horizontal"
+                    android:stretchMode="columnWidth"
                     android:gravity="center"
-                    android:paddingTop="@dimen/container_error_padding"
+                    android:padding="@dimen/grid_people_padding"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v7.widget.LinearLayoutCompat>
-</android.support.v4.widget.SwipeRefreshLayout>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/container_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/container_error_padding"
+        android:gravity="center_horizontal"
+        android:background="@color/page_main_background">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:src="@mipmap/ic_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginTop="@dimen/container_error_padding"
+                android:id="@+id/label_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:paddingTop="@dimen/container_error_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_refresh"
+                android:layout_marginTop="@dimen/container_error_padding"
+                android:text="@string/button_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_marginTop="@dimen/container_error_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateOnly="true" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</FrameLayout>
