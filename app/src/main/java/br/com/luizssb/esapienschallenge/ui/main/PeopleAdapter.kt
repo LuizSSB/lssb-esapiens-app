@@ -19,7 +19,7 @@ class PeopleAdapter(private val context: Context) : BaseAdapter() {
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val cellView: PersonGridCell
         if (p1 == null) {
-            val cellSide = context.resources.getDimension(R.dimen.cell_person_side)
+            val cellSide = context.resources.getDimension(R.dimen.size_cell_person)
             cellView = PersonGridCell(context)
             cellView.layoutParams =
                 AbsListView.LayoutParams(cellSide.toInt(), cellSide.toInt())

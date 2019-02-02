@@ -9,17 +9,17 @@
             android:id="@+id/image_profile"
             android:src="@mipmap/ic_launcher"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     <View
             android:background="@drawable/background_cell_person"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/cell_person_padding">
+            android:padding="@dimen/padding_cell_person">
 
         <TextView
                 android:id="@+id/label_city"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/label_username"
                 android:text="@string/app_name"
-                app:layout_constraintBottom_toTopOf="@id/container_gender" />
+                app:layout_constraintBottom_toTopOf="@id/container_gender"/>
 
         <android.support.v7.widget.LinearLayoutCompat
                 android:id="@+id/container_gender"
@@ -48,21 +48,21 @@
                     android:id="@+id/label_gender"
                     android:text="666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             <TextView
                     style="@style/CellPersonLabelWhite"
                     android:text="@string/separator_gender"
-                    android:layout_marginRight="@dimen/space_letter"
+                    android:layout_marginEnd="@dimen/space_letter"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"/>
 
             <TextView
                     style="@style/CellPersonLabelWhite"
                     android:id="@+id/label_sexuality"
                     android:text="666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 
@@ -78,14 +78,14 @@
                     android:id="@+id/label_age"
                     android:text="666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             <TextView
-                    android:layout_marginLeft="@dimen/space_letter"
+                    android:layout_marginStart="@dimen/space_letter"
                     style="@style/CellPersonLabelWhite"
                     android:text="@string/yearsold"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 

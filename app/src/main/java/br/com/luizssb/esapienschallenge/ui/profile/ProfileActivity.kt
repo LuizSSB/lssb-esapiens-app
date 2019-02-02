@@ -1,11 +1,14 @@
 package br.com.luizssb.esapienschallenge.ui.profile
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import br.com.luizssb.esapienschallenge.R
 import br.com.luizssb.esapienschallenge.model.Person
+import kotlinx.android.synthetic.main.profile_activity.*
 
 class ProfileActivity : AppCompatActivity() {
+
     companion object {
         const val KEY_PERSON =
             "br.com.luizssb.esapienschallenge.profileactivity.person"
@@ -14,6 +17,9 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_activity)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         if (savedInstanceState == null) {
             val person = intent.getSerializableExtra(KEY_PERSON) as Person
             val fragment = ProfileFragment.newInstance(person)
@@ -21,6 +27,14 @@ class ProfileActivity : AppCompatActivity() {
                 .replace(R.id.container, fragment)
                 .commitNow()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

@@ -10,4 +10,5 @@
 
     <string name="yearsold">ano(s)</string>
     <string name="separator_gender">,</string>
+    <string name="content_desc_image_profile">profile image</string>
 </resources>
