@@ -24,7 +24,7 @@ class ReachabilityReceiver(private val connectivityManager: ConnectivityManager)
     }
 
     override val isConnected
-        get() = connectivityManager.activeNetworkInfo.isConnected
+        get() = connectivityManager.activeNetworkInfo?.isConnected ?: false
 
     override fun onReceive(context: Context, intent: Intent) {
         val isNetworkAvailable = isConnected

@@ -1,94 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/image_profile"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    <View
-            android:background="@drawable/background_cell_person"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/elevation_cell_person"
+        app:cardCornerRadius="@dimen/corner_radius_cell_person">
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/padding_cell_person">
+            android:layout_height="match_parent">
 
-        <TextView
-                android:id="@+id/label_city"
-                style="@style/CellPersonLabelWhite"
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/image_profile"
+                android:src="@mipmap/ic_launcher"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="São José do Rio Preto"/>
+                android:layout_height="match_parent"/>
 
-        <TextView
-                style="@style/CellPersonLabelWhite"
+        <View
+                android:background="@drawable/background_cell_person"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/label_username"
-                android:text="@string/app_name"
-                app:layout_constraintBottom_toTopOf="@id/container_gender"/>
+                android:layout_height="match_parent"/>
 
-        <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/container_gender"
+        <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/container_age">
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_cell_person">
+
+            <TextView
+                    android:id="@+id/label_city"
+                    style="@style/CellPersonLabelWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="São José do Rio Preto"/>
 
             <TextView
                     style="@style/CellPersonLabelWhite"
-                    android:id="@+id/label_gender"
-                    android:text="666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/label_username"
+                    android:text="@string/app_name"
+                    app:layout_constraintBottom_toTopOf="@id/container_gender"/>
 
-            <TextView
-                    style="@style/CellPersonLabelWhite"
-                    android:text="@string/separator_gender"
-                    android:layout_marginEnd="@dimen/space_letter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/container_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@id/container_age">
 
-            <TextView
-                    style="@style/CellPersonLabelWhite"
-                    android:id="@+id/label_sexuality"
-                    android:text="666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <TextView
+                        style="@style/CellPersonLabelWhite"
+                        android:id="@+id/label_gender"
+                        android:text="666"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-        </android.support.v7.widget.LinearLayoutCompat>
+                <TextView
+                        style="@style/CellPersonLabelWhite"
+                        android:text="@string/separator_gender"
+                        android:layout_marginEnd="@dimen/space_letter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/container_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent">
+                <TextView
+                        style="@style/CellPersonLabelWhite"
+                        android:id="@+id/label_sexuality"
+                        android:text="666"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-            <TextView
-                    style="@style/CellPersonLabelWhite"
-                    android:id="@+id/label_age"
-                    android:text="666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            </android.support.v7.widget.LinearLayoutCompat>
 
-            <TextView
-                    android:layout_marginStart="@dimen/space_letter"
-                    style="@style/CellPersonLabelWhite"
-                    android:text="@string/yearsold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/container_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-        </android.support.v7.widget.LinearLayoutCompat>
+                <TextView
+                        style="@style/CellPersonLabelWhite"
+                        android:id="@+id/label_age"
+                        android:text="666"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:layout_marginStart="@dimen/space_letter"
+                        style="@style/CellPersonLabelWhite"
+                        android:text="@string/yearsold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

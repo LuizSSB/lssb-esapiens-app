@@ -5,14 +5,15 @@
 <resources>
     <!-- Luiz: don't really understand why, but it is a requirement. -->
     <integer name="columns_grid_people">2</integer>
+    <dimen name="padding_cell_person">10dp</dimen>
+    <dimen name="size_cell_person">160dp</dimen>
+    <dimen name="elevation_cell_person">4dp</dimen>
+    <dimen name="corner_radius_cell_person">5dp</dimen>
 
     <dimen name="spacing_vertical_grid">10dp</dimen>
     <dimen name="spacing_horizontal_grid">10dp</dimen>
 
     <dimen name="padding_container_error">10dp</dimen>
-
-    <dimen name="padding_cell_person">10dp</dimen>
-    <dimen name="size_cell_person">160dp</dimen>
 
     <dimen name="space_letter">3dp</dimen>
     <dimen name="padding_grid_people">10dp</dimen>
