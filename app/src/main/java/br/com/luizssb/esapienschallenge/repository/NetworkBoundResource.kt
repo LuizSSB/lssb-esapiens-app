@@ -9,21 +9,12 @@ import br.com.luizssb.esapienschallenge.service.ApiResponse
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-/**
- * A generic class that can provide a resource backed by both the sqlite database and the network.
- * Inspiration: https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/repository/NetworkBoundResource.kt
- *
- * You can read more about it in the [Architecture
- * Guide](https://developer.android.com/arch).
- * @param <ResultType>
- * @param <RequestType>
-</RequestType></ResultType> */
-abstract class NetworkBoundResource<ResultType, RequestType>
-@MainThread constructor() {
+// Adapted from:
+// https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/repository/NetworkBoundResource.kt
+abstract class NetworkBoundResource<ResultType, RequestType> {
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
-        result.value = Resource.loading(null)
         @Suppress("LeakingThis")
         loadUp()
     }
@@ -33,6 +24,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
             if (forceFromNetwork || shouldFetch(data)) {
+                setValue(Resource.loading(data))
                 fetchFromNetwork(dbSource)
             } else {
                 result.addSource(dbSource) { newData ->
