@@ -1,4 +1,6 @@
 
+**Nota:** aparentemente, o Bitbucket não é capaz de renderizar este arquivo corretamente. Recomenda-se usar [StackEdit](https://stackedit.io/app).
+
 # Teste eSapiens
 App Android relativo teste para a vaga de dev Android/backend na empresa eSapiens.
 
@@ -6,8 +8,8 @@ O app apresenta uma listagem de 20 pessoas aleatórias e permite que o usuário 
 
 Preview:
 
-![Preview (listagem)](https://i.imgur.com/eRVii3S.png)
-![Preview (detalhe)](https://i.imgur.com/V2vdboL.png)
+![Preview (listagem)](https://i.imgur.com/Kmo4BNb.png)
+![Preview (detalhe)](https://i.imgur.com/fqrTq2Q.png)
 
 ## Características
  - Dispositivos: smartphones Android (pode ser executado em tablets, mas layouts não foram otimizados);
@@ -24,13 +26,19 @@ Preview:
 	 - Retrofit, 2.5.0;
  - Nenhum erro ou alerta de compilação.
 
-Devido a API REST do exercício não oferecer qualquer tipo de paginação, decidiu-se que o app apenas mostra os registros retornados a cada requisição/atualização. Nesse momento, os registros anteriores são perdidos.
+O enunciado do teste deixa suficientemente claro que a listagem principal deve apresentar duas colunas e, assim sendo, o aplicativo apresenta, de fato, duas colunas, todavia, isso é somente em orientação retrato. Em orientação paisagem, são exibidas três, colunas, a fim de proporcionar uma melhor experiênca de visualização.
 
-Possui view inicial de carregamento, caso o app não tenha *cacheado* registros anteriormente. 
+Devido a API REST do exercício não oferecer qualquer tipo de paginação, decidiu-se que o app apenas mostra os registros retornados a cada requisição/atualização. Ao receber os resultados de uma requisição, os registros anteriores são perdidos.
+
+App possui view inicial de carregamento, caso não haja registros "cacheados" no banco de dados interno.
 
 Ao detectar que a conexão com a internet foi reestabelecida, requisita novos registros para API REST. Observação: embora tenha sido implementado suporte a dispositivos com API 23-, a validação dessa feature falha; ressalta-se, contudo, que tal validação foi conduzida apenas via emulador, o qual não parece ser totalmente responsivo a estes eventos, i.e. em dispositivos reais, há chance maior de que funcione como esperado).
 
-Código segue padrão MVVM possibilitado pelos Android Architecture Components, com activities, fragments, view models e repositories. Também contém adaptação de `NetworkBoundResource`, para indicar o carregamento de itens
+Código segue padrão MVVM possibilitado pelos Android Architecture Components, com activities, fragments, view models e repositories. Também contém adaptação de `NetworkBoundResource`, para indicar o carregamento de itens.
+
+É a opinião deste autor que o código-fonte do aplicativo é suficientemente simples, claro e conciso, dispensando, assim, documentação. Todavia, comentários elaborados foram adicionados a pontos chave, onde decisões de design ou limitações técnicas influenciaram a estrutura do código.
+
+**Observação**: aparentemente a dependência do Glide é *extremamente* lenta em debug, portanto, para avaliar o app, recomanda-se executá-lo em modo release.
 
 ## Pacotes
 ### `br.com.luizssb.esapienschallenge`
@@ -78,6 +86,7 @@ Classes e interface para consumo da API REST.
 Classes e extensões relacionados a UI.
 - `BaseAppActivity`: ativitidade abstrata raiz de todas as outras do app; usada para mudar a cor da barra de status apenas.
 - `InjectionDependentViewModel`: classe abstrata raiz de view models que requerem injeção de dependências.
+- `SplashActivity`: tela de splash.
 
 ### `br.com.luizssb.esapienschallenge.ui.extension`
 Extensões úteis para componentes de UI.
