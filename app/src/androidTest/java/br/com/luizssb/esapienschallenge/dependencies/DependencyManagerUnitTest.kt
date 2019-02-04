@@ -9,6 +9,7 @@ import br.com.luizssb.esapienschallenge.repository.PersonRepository
 import br.com.luizssb.esapienschallenge.service.PersonService
 import org.junit.Assert.*
 import org.junit.Test
+import org.kodein.di.direct
 import org.kodein.di.generic.instance
 
 class DependencyManagerUnitTest {
@@ -19,20 +20,20 @@ class DependencyManagerUnitTest {
         val kodein = DependencyManager.loadDependencies(context)
 
         // act
-        val personDao = kodein.instance<PersonDao>()
-        val personService1 = kodein.instance<PersonService>()
-        val personService2 = kodein.instance<PersonService>()
-        val personRepo = kodein.instance<PersonRepository>()
-        val cmProxy = kodein.instance<ConnectivityManagerProxy>()
+        val personDao = kodein.direct.instance<PersonDao>()
+        val personService1 = kodein.direct.instance<PersonService>()
+        val personService2 = kodein.direct.instance<PersonService>()
+        val personRepo = kodein.direct.instance<PersonRepository>()
+        val cmProxy = kodein.direct.instance<ConnectivityManagerProxy>()
 
         // assert
-        assertEquals(personDao, kodein.instance<PersonDao>())
+        assertEquals(personDao, kodein.direct.instance<PersonDao>())
         assertNotEquals(personService1, personService2)
-        assertEquals(personRepo, kodein.instance<PersonRepository>())
-        assertEquals(cmProxy, kodein.instance<ConnectivityManagerProxy>())
+        assertEquals(personRepo, kodein.direct.instance<PersonRepository>())
+        assertEquals(cmProxy, kodein.direct.instance<ConnectivityManagerProxy>())
 
         if (context is Application) {
-            assertNotNull(kodein.instance<LayoutInflater>())
+            assertNotNull(kodein.direct.instance<LayoutInflater>())
         }
     }
 

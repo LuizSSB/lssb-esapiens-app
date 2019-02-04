@@ -28,7 +28,6 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // arrange
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
-        var timesLoadedfromDb = 0
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -41,11 +40,6 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun loadFromDb(): LiveData<String> {
                 performedActions.add(ResourceAction.LOAD_FROM_DB)
-                timesLoadedfromDb += 1
-                if (timesLoadedfromDb == 2) {
-                    defaultUnlock()
-
-                }
                 return createStringLiveData()
             }
 
@@ -63,6 +57,9 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // act
         res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
+            if (receivedResults.size == 2) {
+                defaultUnlock()
+            }
         }
         defaultLock()
 
@@ -178,7 +175,6 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // arrange
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
-        var timesLoadedfromDb = 0
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -191,11 +187,6 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun loadFromDb(): LiveData<String> {
                 performedActions.add(ResourceAction.LOAD_FROM_DB)
-                timesLoadedfromDb += 1
-                if (timesLoadedfromDb == 2) {
-                    countDownLatch.countDown()
-
-                }
                 return createStringLiveData()
             }
 
@@ -213,9 +204,11 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // act
         res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
+            if (receivedResults.size == 2 || receivedResults.size == 4) {
+                defaultUnlock()
+            }
         }
         defaultLock()
-        timesLoadedfromDb = 0
         res.loadUp(forceFromNetwork = true)
         defaultLock()
 
@@ -251,7 +244,6 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // arrange
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
-        var timesLoadedfromDb = 0
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -259,16 +251,11 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun shouldFetch(data: String?): Boolean {
                 performedActions.add(ResourceAction.SHOULD_FETCH)
-                return timesLoadedfromDb == 1
+                return receivedResults.size == 0
             }
 
             override fun loadFromDb(): LiveData<String> {
                 performedActions.add(ResourceAction.LOAD_FROM_DB)
-                timesLoadedfromDb += 1
-                if (timesLoadedfromDb == 2 || timesLoadedfromDb == 3) {
-                    countDownLatch.countDown()
-
-                }
                 return createStringLiveData()
             }
 
@@ -286,6 +273,9 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         // act
         res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
+            if (receivedResults.size == 2 || receivedResults.size == 3) {
+                defaultUnlock()
+            }
         }
         defaultLock()
         res.loadUp(forceFromNetwork = false)
