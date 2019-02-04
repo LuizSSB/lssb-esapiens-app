@@ -7,6 +7,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Luiz: not really worth creating an interface, as the return types depend on
+// retrofit anyway.
 class PersonService(private val restApi: ChallengeRestApi) {
     fun getPeople(): LiveData<ApiResponse<List<Person>>> {
         val people = MutableLiveData<ApiResponse<List<Person>>>()
