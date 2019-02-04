@@ -15,7 +15,7 @@ import org.junit.Assert.fail
 import org.junit.Test
 import retrofit2.Call
 
-class PersonRepositoryUnitTest : LiveDataUnitTest() {
+class PersonRepositoryImplUnitTest : LiveDataUnitTest() {
     enum class Action {
         REQUEST, LOAD, SAVE, CLEAN
     }
@@ -46,7 +46,7 @@ class PersonRepositoryUnitTest : LiveDataUnitTest() {
                 fail("not supposed to happen on request failure")
             }
         }
-        val repo = PersonRepository(PersonService(api), dao)
+        val repo = PersonRepositoryImpl(PersonService(api), dao)
 
         // act
         repo.loadPeople().observeForever {
@@ -99,7 +99,7 @@ class PersonRepositoryUnitTest : LiveDataUnitTest() {
                 actions.add(Action.CLEAN)
             }
         }
-        val repo = PersonRepository(PersonService(api), dao)
+        val repo = PersonRepositoryImpl(PersonService(api), dao)
 
         // act
         repo.loadPeople().observeForever {
@@ -155,7 +155,7 @@ class PersonRepositoryUnitTest : LiveDataUnitTest() {
                 fail("Not supposed to happen when non empty db")
             }
         }
-        val repo = PersonRepository(PersonService(api), dao)
+        val repo = PersonRepositoryImpl(PersonService(api), dao)
 
         // act
         repo.loadPeople().observeForever {
