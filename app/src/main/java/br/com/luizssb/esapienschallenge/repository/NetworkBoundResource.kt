@@ -85,7 +85,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     protected open fun onFetchFailed() {}
 
-    fun asLiveData() = result as LiveData<Resource<ResultType>>
+    val asLiveData get() = result as LiveData<Resource<ResultType>>
 
     @WorkerThread
     protected abstract fun saveCallResult(item: RequestType)

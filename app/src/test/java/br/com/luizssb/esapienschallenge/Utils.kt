@@ -13,7 +13,7 @@ fun randomString() = Math.random().toString()
 
 fun createStringLiveData(value: String = randomString()) = createLiveData(value)
 
-fun randomPerson() = Person(
+fun createRandomPerson() = Person(
     username = randomString(),
     photoURL = randomString(),
     age = Math.random().toInt(),

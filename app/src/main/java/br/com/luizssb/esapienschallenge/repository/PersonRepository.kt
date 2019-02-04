@@ -28,7 +28,7 @@ class PersonRepository(
     }
 
 
-    fun loadPeople() = peopleResource.asLiveData()
+    fun loadPeople() = peopleResource.asLiveData
 
     fun refresh() = peopleResource.loadUp(forceFromNetwork = true)
 }

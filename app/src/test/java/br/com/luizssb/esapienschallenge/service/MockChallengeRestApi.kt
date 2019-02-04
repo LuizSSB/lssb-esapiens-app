@@ -10,7 +10,7 @@ open class MockSuccessfulChallengeRestApi(var people: List<Person>?) : Challenge
     }
 }
 
-class MockFailedChallengeRestApi(var error: Throwable = Exception()) : ChallengeRestApi {
+open class MockFailedChallengeRestApi(var error: Throwable = Exception()) : ChallengeRestApi {
     override fun getPeople(): Call<List<Person>> {
         return Calls.failure(error)
     }

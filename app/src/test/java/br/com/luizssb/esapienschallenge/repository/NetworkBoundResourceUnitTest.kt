@@ -7,7 +7,8 @@ import br.com.luizssb.esapienschallenge.createStringLiveData
 import br.com.luizssb.esapienschallenge.model.Status
 import br.com.luizssb.esapienschallenge.randomString
 import br.com.luizssb.esapienschallenge.service.ApiResponse
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.fail
 import org.junit.Test
 
 // Luiz: now, let's be honest here: these tests are a mess, too much duplicated
@@ -55,18 +56,18 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun onFetchFailed() {
                 super.onFetchFailed()
-                Assert.fail("not supposed to happen on successful request")
+                fail("not supposed to happen on successful request")
             }
         }
 
         // act
-        res.asLiveData().observeForever {
+        res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
         }
         defaultLock()
 
         // assert
-        Assert.assertEquals(
+        assertEquals(
             performedActions,
             arrayListOf(
                 ResourceAction.LOAD_FROM_DB,
@@ -76,7 +77,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
                 ResourceAction.LOAD_FROM_DB
             )
         )
-        Assert.assertEquals(
+        assertEquals(
             receivedResults,
             arrayListOf(Status.LOADING, Status.SUCCESS)
         )
@@ -89,7 +90,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         val receivedResults = ArrayList<Status>()
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
-                Assert.fail("not supposed to happen on failed request")
+                fail("not supposed to happen on failed request")
             }
 
             override fun shouldFetch(data: String?): Boolean {
@@ -114,11 +115,11 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         }
 
         // act
-        res.asLiveData().observeForever { receivedResults.add(it!!.status) }
+        res.asLiveData.observeForever { receivedResults.add(it!!.status) }
         defaultLock()
 
         // assert
-        Assert.assertEquals(
+        assertEquals(
             performedActions,
             arrayListOf(
                 ResourceAction.LOAD_FROM_DB,
@@ -127,7 +128,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
                 ResourceAction.FETCH_FAILED
             )
         )
-        Assert.assertEquals(receivedResults, arrayListOf(Status.LOADING, Status.ERROR))
+        assertEquals(receivedResults, arrayListOf(Status.LOADING, Status.ERROR))
     }
 
     @Test
@@ -137,7 +138,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         val receivedResults = ArrayList<Status>()
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
-                Assert.fail("not supposed to happen on non requesting resource")
+                fail("not supposed to happen on non requesting resource")
             }
 
             override fun shouldFetch(data: String?): Boolean {
@@ -151,25 +152,25 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
             }
 
             override fun createCall(): LiveData<ApiResponse<String>> {
-                Assert.fail("not supposed to happen on non requesting resource")
+                fail("not supposed to happen on non requesting resource")
                 return createLiveData(ApiResponse<String>(null, Exception()))
             }
 
             override fun onFetchFailed() {
-                Assert.fail("not supposed to happen on non requesting resource")
+                fail("not supposed to happen on non requesting resource")
             }
         }
 
         // act
-        res.asLiveData().observeForever { receivedResults.add(it!!.status) }
+        res.asLiveData.observeForever { receivedResults.add(it!!.status) }
         defaultLock()
 
         // assert
-        Assert.assertEquals(
+        assertEquals(
             performedActions,
             arrayListOf(ResourceAction.LOAD_FROM_DB, ResourceAction.SHOULD_FETCH)
         )
-        Assert.assertEquals(receivedResults, arrayListOf(Status.SUCCESS))
+        assertEquals(receivedResults, arrayListOf(Status.SUCCESS))
     }
 
     @Test
@@ -205,12 +206,12 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun onFetchFailed() {
                 super.onFetchFailed()
-                Assert.fail("not supposed to happen on successful request")
+                fail("not supposed to happen on successful request")
             }
         }
 
         // act
-        res.asLiveData().observeForever {
+        res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
         }
         defaultLock()
@@ -219,7 +220,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         defaultLock()
 
         // assert
-        Assert.assertEquals(
+        assertEquals(
             performedActions,
             arrayListOf(
                 // 1st fetch
@@ -236,7 +237,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
                 ResourceAction.LOAD_FROM_DB
             )
         )
-        Assert.assertEquals(
+        assertEquals(
             receivedResults,
             arrayListOf(
                 Status.LOADING, Status.SUCCESS, // 1st fetch
@@ -278,12 +279,12 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
 
             override fun onFetchFailed() {
                 super.onFetchFailed()
-                Assert.fail("not supposed to happen on successful request")
+                fail("not supposed to happen on successful request")
             }
         }
 
         // act
-        res.asLiveData().observeForever {
+        res.asLiveData.observeForever {
             receivedResults.add(it!!.status)
         }
         defaultLock()
@@ -291,7 +292,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
         defaultLock()
 
         // assert
-        Assert.assertEquals(
+        assertEquals(
             performedActions,
             arrayListOf(
                 // 1st fetch
@@ -306,7 +307,7 @@ class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
                 ResourceAction.SHOULD_FETCH
             )
         )
-        Assert.assertEquals(
+        assertEquals(
             receivedResults,
             arrayListOf(
                 Status.LOADING, Status.SUCCESS, // 1st fetch
