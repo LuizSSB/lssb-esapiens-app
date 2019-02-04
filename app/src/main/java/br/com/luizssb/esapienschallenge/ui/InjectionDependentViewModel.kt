@@ -4,30 +4,36 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import org.kodein.di.Kodein
 
-abstract class InjectionDependentViewModel(protected val kodein: Kodein)
-    : ViewModel() {
+abstract class InjectionDependentViewModel(protected val kodein: Kodein) : ViewModel() {
 
     /**
-     * Factory to instantiate a ViewModel while injecting the Kodein container
+     * Factory to instantiate a view model while injecting the Kodein container
      * in the constructor, as well as any other constructor parameters it might
      * have.
      * Not really necessary, as Kodein can store values and stuff besides the
      * dependencies, however, this approach avoids using tags, constants and so.
+     * It unfortunately has no way to compile-time check if the supplied
+     * arguments indeed fit one of the available constructors, however that's
+     * the trade-off you get for the commodity of not having to implement a
+     * factory for every view model.
      *
-     * Has a problem with constructor parameters that can be mapped to primitive
-     * types in the JVM (int, double, float, bool, char, etc). To use one of
-     * these, the constructor parameter MUST be nullable, otherwise Kotlin will
-     * understand it as primitive type and will not be able to inject it. In
-     * this case, the @NonNull annotation may help to indicate that the
-     * parameter should, well, not be null.
+     * Should probably be refactored to be able to instantiate any kind of view
+     * model, but since we only use subclasses of this one here, there's no real
+     * reason for that.
+     *
+     * Has a problem with constructor parameters that are mapped to primitive
+     * types in the JVM (Kotlin's non-nullable Int, Double, Boolean, Char, etc).
+     * To use one of these, the constructor parameter MUST be nullable,
+     * otherwise Kotlin will translate it as a primitive JVM type and will have
+     * problems mathinc parameter types. In this case, the @NonNull annotation
+     * may help to indicate that the parameter should, well, not be null.
      *
      * @author Luiz
      */
     @Suppress("UNCHECKED_CAST")
-    class Factory (
+    class Factory(
         private val kodein: Kodein, private vararg val args: Any
-    )
-        : ViewModelProvider.Factory {
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             // Luiz: I'm pretty sure there's a better way of doing this.
             val params = args.toMutableList()

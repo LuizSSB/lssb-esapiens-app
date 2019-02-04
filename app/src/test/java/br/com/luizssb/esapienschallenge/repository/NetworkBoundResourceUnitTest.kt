@@ -1,15 +1,14 @@
 package br.com.luizssb.esapienschallenge.repository
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import br.com.luizssb.esapienschallenge.LiveDataUnitTest
+import br.com.luizssb.esapienschallenge.createLiveData
+import br.com.luizssb.esapienschallenge.createStringLiveData
 import br.com.luizssb.esapienschallenge.model.Status
+import br.com.luizssb.esapienschallenge.randomString
 import br.com.luizssb.esapienschallenge.service.ApiResponse
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 // Luiz: now, let's be honest here: these tests are a mess, too much duplicated
 // code, I know. The thing is, though, that I tried to improve stuff, by creating
@@ -18,30 +17,10 @@ import java.util.concurrent.TimeUnit
 // specifics. However, for some reason, all properties of that class ALWAYS
 // ended up null, even though they were not optional! I have no idea why that
 // happened, but it forced me to leave things as they currently are :/
-class NetworkBoundResourceUnitTest {
+class NetworkBoundResourceUnitTest : LiveDataUnitTest() {
     enum class ResourceAction {
-        CREATE_CALL,
-        LOAD_FROM_DB,
-        SHOULD_FETCH,
-        SAVE_CALL_RESULT,
-        FETCH_FAILED
+        CREATE_CALL, LOAD_FROM_DB, SHOULD_FETCH, SAVE_CALL_RESULT, FETCH_FAILED
     }
-
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
-    private fun <T> createLiveData(value: T): MutableLiveData<T> {
-        val data = MutableLiveData<T>()
-        data.postValue(value)
-        return data
-    }
-
-    private fun randomString(): String = Math.random().toString()
-
-    private fun createStringLiveData(value: String = randomString()): MutableLiveData<String> {
-        return createLiveData(value)
-    }
-
 
     @Test
     fun constructor_rightOrder_fetchSuccess() {
@@ -49,7 +28,6 @@ class NetworkBoundResourceUnitTest {
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
         var timesLoadedfromDb = 0
-        val countDownLatch = CountDownLatch(1)
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -64,7 +42,7 @@ class NetworkBoundResourceUnitTest {
                 performedActions.add(ResourceAction.LOAD_FROM_DB)
                 timesLoadedfromDb += 1
                 if (timesLoadedfromDb == 2) {
-                    countDownLatch.countDown()
+                    defaultUnlock()
 
                 }
                 return createStringLiveData()
@@ -85,7 +63,7 @@ class NetworkBoundResourceUnitTest {
         res.asLiveData().observeForever {
             receivedResults.add(it!!.status)
         }
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
 
         // assert
         Assert.assertEquals(
@@ -108,7 +86,6 @@ class NetworkBoundResourceUnitTest {
     fun constructor_rightOrder_fetchError() {
         // arrange
         val performedActions = ArrayList<ResourceAction>()
-        val countDownLatch = CountDownLatch(1)
         val receivedResults = ArrayList<Status>()
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
@@ -138,7 +115,7 @@ class NetworkBoundResourceUnitTest {
 
         // act
         res.asLiveData().observeForever { receivedResults.add(it!!.status) }
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
 
         // assert
         Assert.assertEquals(
@@ -157,7 +134,6 @@ class NetworkBoundResourceUnitTest {
     fun constructor_rightOrder_noServiceCall() {
         // arrange
         val performedActions = ArrayList<ResourceAction>()
-        val countDownLatch = CountDownLatch(1)
         val receivedResults = ArrayList<Status>()
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
@@ -186,7 +162,7 @@ class NetworkBoundResourceUnitTest {
 
         // act
         res.asLiveData().observeForever { receivedResults.add(it!!.status) }
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
 
         // assert
         Assert.assertEquals(
@@ -202,7 +178,6 @@ class NetworkBoundResourceUnitTest {
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
         var timesLoadedfromDb = 0
-        val countDownLatch = CountDownLatch(2)
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -238,10 +213,10 @@ class NetworkBoundResourceUnitTest {
         res.asLiveData().observeForever {
             receivedResults.add(it!!.status)
         }
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
         timesLoadedfromDb = 0
         res.loadUp(forceFromNetwork = true)
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
 
         // assert
         Assert.assertEquals(
@@ -276,7 +251,6 @@ class NetworkBoundResourceUnitTest {
         val performedActions = ArrayList<ResourceAction>()
         val receivedResults = ArrayList<Status>()
         var timesLoadedfromDb = 0
-        val countDownLatch = CountDownLatch(2)
         val res = object : NetworkBoundResource<String, String>() {
             override fun saveCallResult(item: String) {
                 performedActions.add(ResourceAction.SAVE_CALL_RESULT)
@@ -312,9 +286,9 @@ class NetworkBoundResourceUnitTest {
         res.asLiveData().observeForever {
             receivedResults.add(it!!.status)
         }
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
         res.loadUp(forceFromNetwork = false)
-        countDownLatch.await(1, TimeUnit.SECONDS)
+        defaultLock()
 
         // assert
         Assert.assertEquals(

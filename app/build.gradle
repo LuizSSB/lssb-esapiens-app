@@ -35,6 +35,7 @@ dependencies {
     // Luiz: app dependencies
     implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: version_retrofit
     implementation group: 'com.squareup.retrofit2', name: 'converter-gson', version: version_retrofit
+    testImplementation group: 'com.squareup.retrofit2', name: 'retrofit-mock', version: version_retrofit
 
     implementation group: 'org.kodein.di', name: 'kodein-di-generic-jvm', version: version_kodein
     implementation group: 'org.kodein.di', name: 'kodein-di-framework-android-support', version: version_kodein
@@ -45,6 +46,7 @@ dependencies {
     implementation group: 'android.arch.lifecycle', name: 'extensions', version: version_aac
     implementation group: 'android.arch.persistence.room', name: 'runtime', version: version_aac
     kapt group: 'android.arch.persistence.room', name: 'compiler', version: version_aac
+    testImplementation group: 'android.arch.core', name: 'core-testing', version: version_aac
 
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: version_coroutines
 
@@ -60,5 +62,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    testImplementation group: 'android.arch.core', name: 'core-testing', version: version_aac
 }
