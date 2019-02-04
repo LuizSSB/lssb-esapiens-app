@@ -17,16 +17,15 @@ class PeopleAdapter(private val context: Context, people: List<Person> = emptyLi
         }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val cellView: PersonGridCell
-        if (p1 == null) {
-            val cellSide = context.resources.getDimension(R.dimen.size_cell_person)
-            cellView = PersonGridCell(context)
-            cellView.layoutParams =
-                AbsListView.LayoutParams(cellSide.toInt(), cellSide.toInt())
+        val cellView = if (p1 == null) {
+            PersonGridCell(context)
         } else {
-            cellView = p1 as PersonGridCell
+            p1 as PersonGridCell
         }
 
+        val cellSide = context.resources.getDimension(R.dimen.size_cell_person)
+        cellView.layoutParams =
+            AbsListView.LayoutParams(cellSide.toInt(), cellSide.toInt())
         cellView.person = people[p0]
         return cellView
     }
